@@ -17,8 +17,8 @@ import shlex
 class HBNBCommand(cmd.Cmd):
     """HBNB command line interpreter"""
 
-    custoprompt = "(hbnb) "
-    classes_dict = {
+    prompt = '(hbnb) '
+    my_dict = {
         "BaseModel": BaseModel,
         "User": User,
         "State": State,
@@ -26,13 +26,13 @@ class HBNBCommand(cmd.Cmd):
         "Amenity": Amenity,
         "Place": Place,
         "Review": Review,
-    }
+        }
 
-    def do_quit(self):
+    def do_quit(self, arg):
         """closes the program"""
         return True
 
-    def do_EOF(self):
+    def do_EOF(self, arg):
         """closes the program, saves safely data when ctrl+D is pressed"""
         print("")
         return True
@@ -41,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
         """overrides the default emptyline function"""
         pass
 
-    def do_nth(self, arg):
+    def do_nothing(self, arg):
         """does nothing :D"""
         pass
 
@@ -172,7 +172,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             setattr(my_instance, my_data[2], my_data[3])
         storage.save()
-        
+
     def do_update2(self, arg):
         """
         Updates an instance based on the class name and
