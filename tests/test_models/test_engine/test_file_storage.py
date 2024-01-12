@@ -20,13 +20,13 @@ import unittest
 
 FileStorage = file_storage.FileStorage
 classes = {
-    "Amenity": Amenity,
     "BaseModel": BaseModel,
+    "User": User,
+    "State": State,
     "City": City,
+    "Amenity": Amenity,
     "Place": Place,
     "Review": Review,
-    "State": State,
-    "User": User,
 }
 
 
