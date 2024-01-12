@@ -11,6 +11,7 @@ tset = "%Y-%m-%dT%H:%M:%S.%f"
 
 class BaseModel:
     """BaseModel class"""
+
     def __init__(self, *args, **kwargs):
         """initializes of the BaseModel class."""
 
@@ -34,7 +35,7 @@ class BaseModel:
     def __str__(self):
         """BaseModel class string representation"""
         imaginary = self.__class__.__name__
-        return (f"[{str(imaginary)}]({str(self.id)}){self.__dict__}")
+        return f"[{str(imaginary)}] ({str(self.id)}) {self.__dict__}"
 
     def save(self):
         """
