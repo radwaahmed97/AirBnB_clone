@@ -14,18 +14,15 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """initializes of the BaseModel class."""
 
-        if kwargs is not None:
+        if kwargs:
             for key, value in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, value)
 
             if hasattr(self, "created_at") and type(self.created_at) is str:
-                self.created_at =
-                datetime.strptime(kwargs["created_at"], timeformat)
-            if hasattr(self, "updated_at") and
-            type(self.updated_at) is str:
-                self.updated_at =
-                datetime.strptime(kwargs["updated_at"], timeformat)
+                self.created_at = datetime.strptime(kwargs["created_at"], timeformat)
+            if hasattr(self, "updated_at") and type(self.updated_at) is str:
+                self.updated_at = datetime.strptime(kwargs["updated_at"], timeformat)
 
         else:
             self.id = str(uuid.uuid4())
@@ -36,7 +33,8 @@ class BaseModel:
 
     def __str__(self):
         """BaseModel class string representation"""
-        print(f"[{str(self.__class__.__name__)}] ({str(self.id)}) {self.__dict__}")
+        return (f"[{str(self.__class__.__name__)}]
+                ({str(self.id)}){self.__dict__}")
 
     def save(self):
         """
@@ -44,17 +42,14 @@ class BaseModel:
         with the current datetime.
         """
         self.updated_at = datetime.now()
-        models.storage.save(self)
+        models.storage.save()
 
     def to_dict(self):
         """
         returns a dictionary containing
         all keys/values of __dict__ of the instance
         """
-        new_dict = {}
-        for key, value in self.__dict__.items():
-            if hasattr(self, key):
-                new_dict.update({key: value})
+        new_dict = self.__dict__.copy()
         if "created_at" in new_dict.keys():
             new_dict["created_at"] = new_dict["created_at"].strftime(timeformat)
         if "updated_at" in new_dict.keys():
