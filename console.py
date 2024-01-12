@@ -34,10 +34,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """closes the program, saves safely data when ctrl+D is pressed"""
-        print("")
+        print()
         return True
 
-    def do_emptyline(self):
+    def emptyline(self):
         """overrides the default emptyline function"""
         pass
 
