@@ -51,7 +51,7 @@ class TestCityDocs(unittest.TestCase):
         """Test for the presence of docstrings in City methods"""
         for func in self.city_f:
             self.assertIsNot(
-                func[1].__doc__, None, "{:s} method needs a docstring".format(func[0])
+                func[1].__doc__, None, f"{str(func[0])} method needs docstring"
             )
             self.assertTrue(
                 len(func[1].__doc__) >= 1,
@@ -105,5 +105,5 @@ class TestCity(unittest.TestCase):
     def test_str(self):
         """test that the str method has the correct output"""
         city = City()
-        string = "[City] ({}) {}".format(city.id, city.__dict__)
+        string = "[City]({}){}".format(city.id, city.__dict__)
         self.assertEqual(string, str(city))

@@ -39,19 +39,21 @@ class TestAmenityDocs(unittest.TestCase):
 
     def test_amenity_module_docstring(self):
         """Test for the amenity.py module docstring"""
-        self.assertIsNot(amenity.__doc__, None, "amenity.py needs a docstring")
-        self.assertTrue(len(amenity.__doc__) >= 1, "amenity.py needs a docstring")
+        errormsg = "amenity.py needs a docstring"
+        self.assertIsNot(amenity.__doc__, None, errormsg)
+        self.assertTrue(len(amenity.__doc__) >= 1, errormsg)
 
     def test_amenity_class_docstring(self):
         """Test for the Amenity class docstring"""
-        self.assertIsNot(Amenity.__doc__, None, "Amenity class needs a docstring")
-        self.assertTrue(len(Amenity.__doc__) >= 1, "Amenity class needs a docstring")
+        errormsg2 = "Amenity class needs a docstring"
+        self.assertIsNot(Amenity.__doc__, None, errormsg2)
+        self.assertTrue(len(Amenity.__doc__) >= 1, errormsg2)
 
     def test_amenity_func_docstrings(self):
         """Test for the presence of docstrings in Amenity methods"""
         for func in self.amenity_f:
             self.assertIsNot(
-                func[1].__doc__, None, "{:s} method needs a docstring".format(func[0])
+                func[1].__doc__, None, f"{str(func[0])} method needs docstring"
             )
             self.assertTrue(
                 len(func[1].__doc__) >= 1,
@@ -99,5 +101,5 @@ class TestAmenity(unittest.TestCase):
     def test_str(self):
         """test that the str method has the correct output"""
         amenity = Amenity()
-        string = "[Amenity] ({}) {}".format(amenity.id, amenity.__dict__)
+        string = "[Amenity]({}){}".format(amenity.id, amenity.__dict__)
         self.assertEqual(string, str(amenity))

@@ -44,14 +44,14 @@ class TestStateDocs(unittest.TestCase):
 
     def test_state_class_docstring(self):
         """Test for the State class docstring"""
-        self.assertIsNot(State.__doc__, None, "State class needs a docstring")
-        self.assertTrue(len(State.__doc__) >= 1, "State class needs a docstring")
+        self.assertIsNot(State.__doc__, None, "State class needs docstring")
+        self.assertTrue(len(State.__doc__) >= 1, "State class needs docstring")
 
     def test_state_func_docstrings(self):
         """Test for the presence of docstrings in State methods"""
         for func in self.state_f:
             self.assertIsNot(
-                func[1].__doc__, None, "{:s} method needs a docstring".format(func[0])
+                func[1].__doc__, None, f"{str(func[0])} method needs docstring"
             )
             self.assertTrue(
                 len(func[1].__doc__) >= 1,
@@ -99,5 +99,5 @@ class TestState(unittest.TestCase):
     def test_str(self):
         """test that the str method has the correct output"""
         state = State()
-        string = "[State] ({}) {}".format(state.id, state.__dict__)
+        string = "[State]({}){}".format(state.id, state.__dict__)
         self.assertEqual(string, str(state))

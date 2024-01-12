@@ -51,7 +51,7 @@ class TestUserDocs(unittest.TestCase):
         """Test for the presence of docstrings in User methods"""
         for func in self.user_f:
             self.assertIsNot(
-                func[1].__doc__, None, "{:s} method needs a docstring".format(func[0])
+                func[1].__doc__, None, f"{str(func[0])} method needs docstring"
             )
             self.assertTrue(
                 len(func[1].__doc__) >= 1,
@@ -117,5 +117,5 @@ class TestUser(unittest.TestCase):
     def test_str(self):
         """test that the str method has the correct output"""
         user = User()
-        string = "[User] ({}) {}".format(user.id, user.__dict__)
+        string = "[User]({}){}".format(user.id, user.__dict__)
         self.assertEqual(string, str(user))

@@ -70,14 +70,15 @@ test_file_storage.py"
 
     def test_file_storage_class_docstring(self):
         """Test for the FileStorage class docstring"""
-        self.assertIsNot(FileStorage.__doc__, None, "State class needs a docstring")
-        self.assertTrue(len(FileStorage.__doc__) >= 1, "State class needs a docstring")
+        errormsg = "FileStorage class needs a docstring"
+        self.assertIsNot(FileStorage.__doc__, None, errormsg)
+        self.assertTrue(len(FileStorage.__doc__) >= 1, errormsg)
 
     def test_fs_func_docstrings(self):
         """Test for the presence of docstrings in FileStorage methods"""
         for func in self.fs_f:
             self.assertIsNot(
-                func[1].__doc__, None, "{:s} method needs a docstring".format(func[0])
+                func[1].__doc__, None, f"{str(func[0])} method needs docstring"
             )
             self.assertTrue(
                 len(func[1].__doc__) >= 1,

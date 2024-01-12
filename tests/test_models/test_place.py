@@ -44,14 +44,15 @@ class TestPlaceDocs(unittest.TestCase):
 
     def test_place_class_docstring(self):
         """Test for the Place class docstring"""
-        self.assertIsNot(Place.__doc__, None, "Place class needs a docstring")
-        self.assertTrue(len(Place.__doc__) >= 1, "Place class needs a docstring")
+        errormsg = "Place class needs docstring"
+        self.assertIsNot(Place.__doc__, None, errormsg)
+        self.assertTrue(len(Place.__doc__) >= 1, errormsg)
 
     def test_place_func_docstrings(self):
         """Test for the presence of docstrings in Place methods"""
         for func in self.place_f:
             self.assertIsNot(
-                func[1].__doc__, None, "{:s} method needs a docstring".format(func[0])
+                func[1].__doc__, None, f"{str(func[0])} method needs docstring"
             )
             self.assertTrue(
                 len(func[1].__doc__) >= 1,
@@ -166,5 +167,5 @@ class TestPlace(unittest.TestCase):
     def test_str(self):
         """test that the str method has the correct output"""
         place = Place()
-        string = "[Place] ({}) {}".format(place.id, place.__dict__)
+        string = "[Place]({}){}".format(place.id, place.__dict__)
         self.assertEqual(string, str(place))
