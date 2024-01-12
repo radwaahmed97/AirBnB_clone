@@ -33,8 +33,7 @@ class BaseModel:
 
     def __str__(self):
         """BaseModel class string representation"""
-        return (f"[{str(self.__class__.__name__)}]
-                ({str(self.id)}){self.__dict__}")
+        return (f"[{str(self.__class__.__name__)}]({str(self.id)}){self.__dict__}")
 
     def save(self):
         """
