@@ -17,7 +17,7 @@ import shlex
 class HBNBCommand(cmd.Cmd):
     """HBNB command line interpreter"""
 
-    prompt = '(hbnb) '
+    prompt = "(hbnb) "
     my_dict = {
         "BaseModel": BaseModel,
         "User": User,
@@ -26,10 +26,10 @@ class HBNBCommand(cmd.Cmd):
         "Amenity": Amenity,
         "Place": Place,
         "Review": Review,
-        }
+    }
 
     def do_quit(self, arg):
-        """closes the program"""
+        """Quit command to exit the program"""
         return True
 
     def do_EOF(self, arg):
@@ -190,7 +190,7 @@ class HBNBCommand(cmd.Cmd):
         if my_data[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        if (len(my_data) == 1):
+        if len(my_data) == 1:
             print("** instance id missing **")
             return
         try:
@@ -199,11 +199,11 @@ class HBNBCommand(cmd.Cmd):
         except KeyError:
             print("** no instance found **")
             return
-        if (my_dictionary == "{"):
+        if my_dictionary == "{":
             print("** attribute name missing **")
             return
 
-        my_dictionary = my_dictionary.replace("\'", "\"")
+        my_dictionary = my_dictionary.replace("'", '"')
         my_dictionary = json.loads(my_dictionary)
         my_instance = objs_dict[key]
         for my_key in my_dictionary:
@@ -221,18 +221,18 @@ class HBNBCommand(cmd.Cmd):
         counter = 0
         objects_dict = storage.all()
         for key in objects_dict:
-            if (arg in key):
+            if arg in key:
                 counter += 1
         print(counter)
 
     def default(self, arg):
-        """ handle new ways of inputing data """
+        """handle new ways of inputing data"""
         val_dict = {
             "all": self.do_all,
             "count": self.do_count,
             "show": self.do_show,
             "destroy": self.do_destroy,
-            "update": self.do_update
+            "update": self.do_update,
         }
         arg = arg.strip()
         values = arg.split(".")
@@ -242,7 +242,7 @@ class HBNBCommand(cmd.Cmd):
         class_name = values[0]
         command = values[1].split("(")[0]
         line = ""
-        if (command == "update" and values[1].split("(")[1][-2] == "}"):
+        if command == "update" and values[1].split("(")[1][-2] == "}":
             inputs = values[1].split("(")[1].split(",", 1)
             inputs[0] = shlex.split(inputs[0])[0]
             line = "".join(inputs)[0:-1]
@@ -252,7 +252,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             inputs = values[1].split("(")[1].split(",")
             for num in range(len(inputs)):
-                if (num != len(inputs) - 1):
+                if num != len(inputs) - 1:
                     line = line + " " + shlex.split(inputs[num])[0]
                 else:
                     line = line + " " + shlex.split(inputs[num][0:-1])[0]
@@ -260,7 +260,7 @@ class HBNBCommand(cmd.Cmd):
             inputs = ""
             line = ""
         line = class_name + line
-        if (command in val_dict.keys()):
+        if command in val_dict.keys():
             val_dict[command](line.strip())
 
 
