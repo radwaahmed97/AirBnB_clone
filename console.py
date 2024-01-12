@@ -52,11 +52,11 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        my_data = shlex.split(arg)
-        if my_data[0] not in HBNBCommand.my_dict.keys():
+        datasplit = shlex.split(arg)
+        if datasplit[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.my_dict[my_data[0]]()
+        new_instance = HBNBCommand.my_dict[datasplit[0]]()
         new_instance.save()
         print(new_instance.id)
 
@@ -66,21 +66,21 @@ class HBNBCommand(cmd.Cmd):
         based on the class name and id
         Structure: show [class name] [id]
         """
-        tokens = shlex.split(arg)
-        if len(tokens) == 0:
+        datasplit = shlex.split(arg)
+        if len(datasplit) == 0:
             print("** class name missing **")
             return
-        if tokens[0] not in HBNBCommand.my_dict.keys():
+        if datasplit[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        if len(tokens) <= 1:
+        if len(datasplit) <= 1:
             print("** instance id missing **")
             return
         storage.reload()
-        objs_dict = storage.all()
-        key = tokens[0] + "." + tokens[1]
-        if key in objs_dict:
-            obj_instance = str(objs_dict[key])
+        stored_dict = storage.all()
+        key = datasplit[0] + "." + datasplit[1]
+        if key in stored_dict:
+            obj_instance = str(stored_dict[key])
             print(obj_instance)
         else:
             print("** no instance found **")
@@ -91,21 +91,21 @@ class HBNBCommand(cmd.Cmd):
         (saves the changes into the JSON file)
         Structure: destroy [class name] [id]
         """
-        tokens = shlex.split(arg)
-        if len(tokens) == 0:
+        datasplit = shlex.split(arg)
+        if len(datasplit) == 0:
             print("** class name missing **")
             return
-        if tokens[0] not in HBNBCommand.my_dict.keys():
+        if datasplit[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        if len(tokens) <= 1:
+        if len(datasplit) <= 1:
             print("** instance id missing **")
             return
         storage.reload()
-        objs_dict = storage.all()
-        key = tokens[0] + "." + tokens[1]
-        if key in objs_dict:
-            del objs_dict[key]
+        stored_dict = storage.all()
+        key = datasplit[0] + "." + datasplit[1]
+        if key in stored_dict:
+            del stored_dict[key]
             storage.save()
         else:
             print("** no instance found **")
@@ -116,21 +116,21 @@ class HBNBCommand(cmd.Cmd):
         based or not on the class name
         Structure: all [class name] or all
         """
-        # prints the whole file
+
         storage.reload()
-        my_json = []
-        objects_dict = storage.all()
+        tojsonlist = []
+        stored_dict = storage.all()
         if not arg:
-            for key in objects_dict:
-                my_json.append(str(objects_dict[key]))
-            print(json.dumps(my_json))
+            for key in stored_dict:
+                tojsonlist.append(str(stored_dict[key]))
+            print(json.dumps(tojsonlist))
             return
         token = shlex.split(arg)
         if token[0] in HBNBCommand.my_dict.keys():
-            for key in objects_dict:
+            for key in stored_dict:
                 if token[0] in key:
-                    my_json.append(str(objects_dict[key]))
-            print(json.dumps(my_json))
+                    tojsonlist.append(str(stored_dict[key]))
+            print(json.dumps(tojsonlist))
         else:
             print("** class doesn't exist **")
 
@@ -144,33 +144,33 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        my_data = shlex.split(arg)
+        datasplit = shlex.split(arg)
         storage.reload()
-        objs_dict = storage.all()
-        if my_data[0] not in HBNBCommand.my_dict.keys():
+        stored_dict = storage.all()
+        if datasplit[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        if len(my_data) == 1:
+        if len(datasplit) == 1:
             print("** instance id missing **")
             return
         try:
-            key = my_data[0] + "." + my_data[1]
-            objs_dict[key]
+            key = datasplit[0] + "." + datasplit[1]
+            stored_dict[key]
         except KeyError:
             print("** no instance found **")
             return
-        if len(my_data) == 2:
+        if len(datasplit) == 2:
             print("** attribute name missing **")
             return
-        if len(my_data) == 3:
+        if len(datasplit) == 3:
             print("** value missing **")
             return
-        my_instance = objs_dict[key]
-        if hasattr(my_instance, my_data[2]):
-            data_type = type(getattr(my_instance, my_data[2]))
-            setattr(my_instance, my_data[2], data_type(my_data[3]))
+        my_instance = stored_dict[key]
+        if hasattr(my_instance, datasplit[2]):
+            data_type = type(getattr(my_instance, datasplit[2]))
+            setattr(my_instance, datasplit[2], data_type(datasplit[3]))
         else:
-            setattr(my_instance, my_data[2], my_data[3])
+            setattr(my_instance, datasplit[2], datasplit[3])
         storage.save()
 
     def do_update2(self, arg):
@@ -219,8 +219,8 @@ class HBNBCommand(cmd.Cmd):
         Counts number of instances of a class
         """
         counter = 0
-        objects_dict = storage.all()
-        for key in objects_dict:
+        stored_dict = storage.all()
+        for key in stored_dict:
             if arg in key:
                 counter += 1
         print(counter)

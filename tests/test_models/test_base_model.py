@@ -149,7 +149,7 @@ class TestBaseModel(unittest.TestCase):
         """test that the str method has the correct output"""
         inst = BaseModel()
         _dict = inst.__dict__
-        string1 = "[BaseModel]({}){}".format(inst.id, _dict)
+        string1 = "[BaseModel] ({}) {}".format(inst.id, _dict)
         string2 = str(inst)
         self.assertEqual(string1, string2)
 

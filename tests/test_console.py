@@ -101,7 +101,7 @@ class TestConsoleClass(unittest.TestCase):
     def test_create_unknown(self):
         """Test the create function"""
         with patch("sys.stdout", new=StringIO()) as val:
-            HBNBCommand().onecmd("create Holberton")
+            HBNBCommand().onecmd("create alx")
             self.assertEqual(val.getvalue(), "** class doesn't exist **\n")
 
     def test_show(self):
