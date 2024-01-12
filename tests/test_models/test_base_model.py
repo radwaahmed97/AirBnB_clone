@@ -22,7 +22,8 @@ class TestBaseModelDocs(unittest.TestCase):
 
     def test_pep8_conformance(self):
         """Test that models/base_model.py conforms to PEP8."""
-        for path in ["models/base_model.py", "tests/test_models/test_base_model.py"]:
+        shortpath = "tests/test_models/test_base_model.py"
+        for path in ["models/base_model.py", shortpath]:
             with self.subTest(path=path):
                 errors = pycodestyle.Checker(path).check_all()
                 self.assertEqual(errors, 0)
@@ -34,7 +35,8 @@ class TestBaseModelDocs(unittest.TestCase):
 
     def test_class_docstring(self):
         """Test for the BaseModel class docstring"""
-        self.assertIsNot(BaseModel.__doc__, None, "BaseModel class needs a docstring")
+        errormsg = "BaseModel class needs a docstring"
+        self.assertIsNot(BaseModel.__doc__, None, errormsg)
         self.assertTrue(
             len(BaseModel.__doc__) >= 1, "BaseModel class needs a docstring"
         )
@@ -146,8 +148,10 @@ class TestBaseModel(unittest.TestCase):
     def test_str(self):
         """test that the str method has the correct output"""
         inst = BaseModel()
-        string = "[BaseModel] ({}) {}".format(inst.id, inst.__dict__)
-        self.assertEqual(string, str(inst))
+        _dict = inst.__dict__
+        string1 = "[BaseModel]({}){}".format(inst.id, _dict)
+        string2 = str(inst)
+        self.assertEqual(string1, string2)
 
     @mock.patch("models.storage")
     def test_save(self, mock_storage):
