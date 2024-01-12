@@ -11,7 +11,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
-otherclasses = {
+classes = {
     "BaseModel": BaseModel,
     "User": User,
     "State": State,
@@ -49,12 +49,10 @@ class FileStorage:
     def reload(self):
         """desrializes all objects from a json file"""
         try:
-            with open(self.__file_path, "r") as f:
+            with open(self.__file_path, "r", encoding="UTF8") as f:
                 deserialize_dict = json.load(f)
-            for key in deserialize_dict.keys():
-                self.__objects[key] =
-                otherclasses[deserialize_dict[key]["__class__"]]
-                (**deserialize_dict[key])
+            for key, value in deserialize_dict.items():
+                self.__objects[key] = classes[value["__class__"]](**value)
 
-        except:
+        except FileNotFoundError:
             pass
