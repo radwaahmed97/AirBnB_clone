@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 import models
 
-timeformat = "%Y-%m-%dT%H:%M:%S.%f"
+tset = "%Y-%m-%dT%H:%M:%S.%f"
 
 
 class BaseModel:
@@ -20,9 +20,9 @@ class BaseModel:
                     setattr(self, key, value)
 
             if hasattr(self, "created_at") and type(self.created_at) is str:
-                self.created_at = datetime.strptime(kwargs["created_at"], timeformat)
+                self.created_at = datetime.strptime(kwargs["created_at"], tset)
             if hasattr(self, "updated_at") and type(self.updated_at) is str:
-                self.updated_at = datetime.strptime(kwargs["updated_at"], timeformat)
+                self.updated_at = datetime.strptime(kwargs["updated_at"], tset)
 
         else:
             self.id = str(uuid.uuid4())
@@ -33,7 +33,8 @@ class BaseModel:
 
     def __str__(self):
         """BaseModel class string representation"""
-        return (f"[{str(self.__class__.__name__)}]({str(self.id)}){self.__dict__}")
+        imaginary = self.__class__.__name__
+        return (f"[{str(imaginary)}]({str(self.id)}){self.__dict__}")
 
     def save(self):
         """
@@ -50,9 +51,9 @@ class BaseModel:
         """
         new_dict = self.__dict__.copy()
         if "created_at" in new_dict.keys():
-            new_dict["created_at"] = new_dict["created_at"].strftime(timeformat)
+            new_dict["created_at"] = new_dict["created_at"].strftime(tset)
         if "updated_at" in new_dict.keys():
-            new_dict["updated_at"] = new_dict["updated_at"].strftime(timeformat)
+            new_dict["updated_at"] = new_dict["updated_at"].strftime(tset)
 
         new_dict["__class__"] = self.__class__.__name__
 
