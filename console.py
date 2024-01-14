@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""entry point to command line interprete"""
+"""entry point to command line interpreter"""
 
 import cmd
 from models.base_model import BaseModel
