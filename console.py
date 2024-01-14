@@ -15,7 +15,7 @@ import shlex
 
 
 class HBNBCommand(cmd.Cmd):
-    """HBNB command line interprete"""
+    """HBNB command line interpreter"""
 
     prompt = "(hbnb) "
     my_dict = {
