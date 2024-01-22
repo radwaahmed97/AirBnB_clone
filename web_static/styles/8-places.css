@@ -7,7 +7,6 @@ Places
     font-size: 30px;
     vertical-align: top;
     text-align: left;
-    padding: 10px 15px;
 }
 
 .places {
@@ -26,6 +25,7 @@ Places
 
 .places h2 {
     font-size: 30px;
+    padding-bottom: 5%;
     text-align: center;
 }
 
