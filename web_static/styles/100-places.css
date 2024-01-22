@@ -5,12 +5,17 @@ Places
 */
 .places h1 {
     font-size: 30px;
-    vertical-align: top;
-    text-align: left;
+    width: 100%;
+    padding-left: 20px;
+    margin: 10px auto auto;
 }
+
 
 .places {
     margin-bottom: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .places article {
@@ -28,14 +33,6 @@ Places
     font-size: 30px;
     padding-bottom: 5%;
     text-align: center;
-}
-
-.boxes {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    flex-wrap: wrap;
-    position: relative;
 }
 
 .price_by_night {
